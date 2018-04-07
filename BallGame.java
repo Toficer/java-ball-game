@@ -3,9 +3,8 @@ package BallGame;
 import java.io.IOException;
 
 /**
- * 
- * @author Rafal Raczynski
  * Glowna klasa gry.
+ * @author Rafal Raczynski
  */
 
 public class BallGame {

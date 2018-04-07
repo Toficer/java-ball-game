@@ -31,21 +31,37 @@ public class GameCanvas extends Canvas{
 		for (int i=0; i<15; i++) {
 			for (int j=0; j<20; j++) {
 				if(tileObjects[j][i] instanceof Wall) {
-					((Wall) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this);
+					((Wall) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
+					((Wall) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
+					//((Wall) tileObjects[j][i]).paintInCanvas(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this); old version
+					((Wall) tileObjects[j][i]).paintInCanvas(g, this);
 				}
 				else if(tileObjects[j][i] instanceof Air) {
-					((Air) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, airColor);
+					((Air) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
+					((Air) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
+					//((Air) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, airColor); old version
+					((Air) tileObjects[j][i]).paintInCanvas(g, airColor);
 				}
-				if(tileObjects[j][i] instanceof Portal) {
-					((Portal) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this);
+				else if(tileObjects[j][i] instanceof Portal) {
+					//((Portal) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this); old version
+					((Portal) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
+					((Portal) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
+					((Portal) tileObjects[j][i]).paintInCanvas(g, this);
 				}
-				if(tileObjects[j][i] instanceof Star) {
-					((Star) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this);
+				else if(tileObjects[j][i] instanceof Star) {
+					((Star) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
+					((Star) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
+					((Star) tileObjects[j][i]).paintInCanvas(g, this);
+				}
+				else if(tileObjects[j][i] instanceof DirectionalBooster) {
+					((DirectionalBooster) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
+					((DirectionalBooster) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
+					((DirectionalBooster) tileObjects[j][i]).paintInCanvas(g, this);
 				}
 			}
 		}
-		//ball.setPos(size2.width/2, size2.height/2);
-		ball.setDimensions((int)(d1/1.3), (int)(d2/1.3));
+		ball.setDimensions((int)(d1), (int)(d2));
+		ball.setDrawingPos(size2.width, size2.height, xoffset, yoffset);
 		ball.paintInCanvas(g);
 	}
 

@@ -53,7 +53,7 @@ public class GameWindow extends Frame{
 		footerPanel.setBackground(Color.lightGray);
 		
 		Panel centralPanel = new Panel(new BorderLayout());
-		centralPanel.setBackground(Color.gray);
+		centralPanel.setBackground(Color.lightGray);
 		centralPanel.add(gameCanvas, BorderLayout.CENTER);
 		add(centralPanel, BorderLayout.CENTER);
 		add(headerPanel, BorderLayout.NORTH);
@@ -61,15 +61,23 @@ public class GameWindow extends Frame{
 		pack();
 	}
 	/**
-	 * Pozwala na edycje zawartosci pola "ZYCIA"
+	 * Pozwala na edycje zawartosci pola "ZYCIA".
 	 * @param input Zadana ilosc zyc.
 	 */
 	public void setLives(int input) {
 		lives = input;
 	}
+	/**
+	 * Pozwala na edycje zawartosci pola "PULA".
+	 * @param input Zadana pula punktow do zdobycia.
+	 */
 	public void setPool(int input) {
 		pool = input;
 	}
+	/**
+	 * Pozwala na edycje zawartosci pola "WYNIK".
+	 * @param input Zadany wynik.
+	 */
 	public void setScore(int input) {
 		score = input;
 	}
