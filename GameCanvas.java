@@ -7,11 +7,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+/**
+ * Obszar rysowania gry.
+ * @author Rafal Raczynski
+ */
+
 public class GameCanvas extends Canvas{
     Image portal = Toolkit.getDefaultToolkit().getImage("portal.png");
     Image brick = Toolkit.getDefaultToolkit().getImage("brick.png");
     
-	Object[][] tileObjects;
+	GameObject[][] tileObjects;
 	PlayerBall ball = new PlayerBall();
 	Color airColor = Color.lightGray;
 	
@@ -30,32 +35,26 @@ public class GameCanvas extends Canvas{
 		int yoffset = (size2.height%20)/2;
 		for (int i=0; i<15; i++) {
 			for (int j=0; j<20; j++) {
+				
+				tileObjects[j][i].setDimensions((int)(d1), (int)(d2));
+				tileObjects[j][i].setDrawingPos(size2.width, size2.height, xoffset, yoffset);
+				
 				if(tileObjects[j][i] instanceof Wall) {
-					((Wall) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
-					((Wall) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
-					//((Wall) tileObjects[j][i]).paintInCanvas(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this); old version
 					((Wall) tileObjects[j][i]).paintInCanvas(g, this);
 				}
 				else if(tileObjects[j][i] instanceof Air) {
-					((Air) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
-					((Air) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
-					//((Air) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, airColor); old version
 					((Air) tileObjects[j][i]).paintInCanvas(g, airColor);
 				}
 				else if(tileObjects[j][i] instanceof Portal) {
-					//((Portal) tileObjects[j][i]).paint(g, i*d1+xoffset, j*d2+yoffset, d1, d2, this); old version
-					((Portal) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
-					((Portal) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
 					((Portal) tileObjects[j][i]).paintInCanvas(g, this);
 				}
 				else if(tileObjects[j][i] instanceof Star) {
-					((Star) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
-					((Star) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
 					((Star) tileObjects[j][i]).paintInCanvas(g, this);
 				}
+				else if(tileObjects[j][i] instanceof GravityOrb) {
+					((GravityOrb) tileObjects[j][i]).paintInCanvas(g, this);
+				}
 				else if(tileObjects[j][i] instanceof DirectionalBooster) {
-					((DirectionalBooster) tileObjects[j][i]).setDimensions((int)(d1), (int)(d2));
-					((DirectionalBooster) tileObjects[j][i]).setDrawingPos(size2.width, size2.height, xoffset, yoffset);
 					((DirectionalBooster) tileObjects[j][i]).paintInCanvas(g, this);
 				}
 			}

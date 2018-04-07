@@ -5,6 +5,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.ImageObserver;
 
+/**
+ * Obiekt gry: booster, przyspiesza kulke w kierunku strzalki.
+ * @author Rafal Raczynski
+ */
+
 public class DirectionalBooster extends GameObject{
 	
 	DirectionalBooster(ArrowDirection direction){

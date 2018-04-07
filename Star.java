@@ -5,6 +5,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.ImageObserver;
 
+/**
+ * Obiekt gry: gwiazdka, zebranie jej skutkuje zdobyciem dodatkowych punktow.
+ * @author Rafal Raczynski
+ */
+
 public class Star extends GameObject{
 	
 	Image star = Toolkit.getDefaultToolkit().getImage("star.png");

@@ -11,7 +11,6 @@ import BallGame.DirectionalBooster.ArrowDirection;
 /**
  * Parsowanie plikow poziomow. Klasa tworzy nowe okno gry na podstawie odczytanego pliku poziomu.
  * @author Rafal Raczynski
- * @param name Nazwa pliku, ktory chcemy odczytac z dysku.
  */
 public class LevelParser {
 	
@@ -19,7 +18,7 @@ public class LevelParser {
 	GameWindow readLevelFile(String name) throws IOException{
 		
 		GameCanvas canvas = new GameCanvas();
-		Object[][] tileObjects = new Object[20][15];
+		GameObject[][] tileObjects = new GameObject[20][15];
 		char[][] objTypes = new char[20][15];
 		int pool=1, lives=1;
 		
@@ -31,6 +30,12 @@ public class LevelParser {
 		String reading;
 		reading = levelFile.readLine();
 		int failsafe = 0;
+		
+		while(!reading.equals("end description")) {
+			reading = levelFile.readLine();
+		}
+		
+		reading = levelFile.readLine();
 		while(!reading.equals("begin level") && failsafe<100) {
 			
 			if(reading.contains("pool")) {
@@ -70,36 +75,35 @@ public class LevelParser {
 			for(int j=0; j<15; j++) {
 				if(objTypes[i][j] == 'x') {
 					tileObjects[i][j] = new Wall();
-					((Wall)tileObjects[i][j]).setPos(j*50, i*50);
 				}
 				else if(objTypes[i][j] == 'p') {
 					tileObjects[i][j] = new Portal();
-					((Portal)tileObjects[i][j]).setPos(j*50, i*50);
 				}
 				else if(objTypes[i][j] == 's') {
 					tileObjects[i][j] = new Star();
-					((Star)tileObjects[i][j]).setPos(j*50, i*50);
 				}
 				else if(objTypes[i][j] == 'u') {
 					tileObjects[i][j] = new DirectionalBooster(ArrowDirection.UP);
-					((DirectionalBooster)tileObjects[i][j]).setPos(j*50, i*50);
 				}
 				else if(objTypes[i][j] == 'd') {
 					tileObjects[i][j] = new DirectionalBooster(ArrowDirection.DOWN);
-					((DirectionalBooster)tileObjects[i][j]).setPos(j*50, i*50);
 				}
 				else if(objTypes[i][j] == 'l') {
 					tileObjects[i][j] = new DirectionalBooster(ArrowDirection.LEFT);
-					((DirectionalBooster)tileObjects[i][j]).setPos(j*50, i*50);
 				}
 				else if(objTypes[i][j] == 'r') {
 					tileObjects[i][j] = new DirectionalBooster(ArrowDirection.RIGHT);
-					((DirectionalBooster)tileObjects[i][j]).setPos(j*50, i*50);
+				}
+				else if(objTypes[i][j] == 'n') {
+					tileObjects[i][j] = new GravityOrb(-10);
+				}
+				else if(objTypes[i][j] == 'm') {
+					tileObjects[i][j] = new GravityOrb(10);
 				}
 				else{
 					tileObjects[i][j] = new Air();
-					((Air)tileObjects[i][j]).setPos(j*50, i*50);
 				}
+				tileObjects[i][j].setPos(j*50, i*50);
 			}
 		}
 		

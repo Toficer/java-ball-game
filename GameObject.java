@@ -6,6 +6,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.ImageObserver;
 
+/**
+ * Obiekt gry: podstawowy obiekt gry.
+ * @author Rafal Raczynski
+ */
+
 public class GameObject extends Component{
 	
 	int posx = 10, posy = 10;

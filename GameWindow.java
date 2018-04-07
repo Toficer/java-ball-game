@@ -81,7 +81,7 @@ public class GameWindow extends Frame{
 	public void setScore(int input) {
 		score = input;
 	}
-	public void setTileObject(int i, int j, Object object) {
+	public void setTileObject(int i, int j, GameObject object) {
 		gameCanvas.tileObjects[i][j] = object;
 		//placeholder method for interacting with the canvas
 	}
