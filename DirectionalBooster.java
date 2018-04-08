@@ -11,7 +11,9 @@ import java.awt.image.ImageObserver;
  */
 
 public class DirectionalBooster extends GameObject{
-	
+	/**
+	 * Konstruktor pozwala wybrac kierunek przyspieszacza.
+	 */
 	DirectionalBooster(ArrowDirection direction){
 		this.direction = direction;
 	}
@@ -26,7 +28,10 @@ public class DirectionalBooster extends GameObject{
 	Image arrowdown = Toolkit.getDefaultToolkit().getImage("arrowdown.png");
 	Image arrowleft = Toolkit.getDefaultToolkit().getImage("arrowleft.png");
 	Image arrowright = Toolkit.getDefaultToolkit().getImage("arrowright.png");
-	
+	/**
+	 * Metoda rysowania obiektu przyjmuje kontekst graficzny canvasu, na ktorym bedzie on rysowany.
+	 * W zaleznosci od kierunku przyspieszacza, wybierany jest odpowiedni obrazek go reprezentujacy.
+	 */
 	public void paintInCanvas(Graphics g, ImageObserver observer) {
 		
 		switch(direction) {

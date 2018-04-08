@@ -81,8 +81,12 @@ public class GameWindow extends Frame{
 	public void setScore(int input) {
 		score = input;
 	}
+	/**
+	 * Pozwala (lub bedzie pozwalac) na podmienienie obiektu z tablicy obiektow gry pola rysowania.
+	 * @param object Obiekt do podmiany.
+	 */
 	public void setTileObject(int i, int j, GameObject object) {
 		gameCanvas.tileObjects[i][j] = object;
-		//placeholder method for interacting with the canvas
+		//placeholder method for interacting with the canvas (TODO)
 	}
 }

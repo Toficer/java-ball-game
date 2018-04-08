@@ -8,7 +8,10 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+/**
+ * Okno menu. Zawiera przyciski pozwalajace poruszac sie po aplikacji i rozpoczac gre.
+ * @author Rafal Raczynski
+ */
 public class MenuWindow extends Frame{
 	
 	MenuWindow(String title){

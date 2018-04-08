@@ -10,6 +10,8 @@ import BallGame.DirectionalBooster.ArrowDirection;
 
 /**
  * Parsowanie plikow poziomow. Klasa tworzy nowe okno gry na podstawie odczytanego pliku poziomu.
+ * Docelowo odczytywane bedzie wiecej parametrow, jak grawitacja czy szybkosc zmiany puli.
+ * Na chwile obecna zadne z tych rzeczy nie sa zaimplementowane, wiec parser ich nie szuka.
  * @author Rafal Raczynski
  */
 public class LevelParser {
@@ -17,6 +19,7 @@ public class LevelParser {
 	
 	GameWindow readLevelFile(String name) throws IOException{
 		
+		//Deklaracja wszystkich niezbednych zmiennych i obiektow.
 		GameCanvas canvas = new GameCanvas();
 		GameObject[][] tileObjects = new GameObject[20][15];
 		char[][] objTypes = new char[20][15];
@@ -28,13 +31,20 @@ public class LevelParser {
 		LineNumberReader levelFile = new LineNumberReader(levelReader);
 		
 		String reading;
+		
+		//Wczytujemy pierwsza linie pliku.
 		reading = levelFile.readLine();
 		int failsafe = 0;
 		
+		//Ignorujemy wszystko, co znajduje sie przed "end description".
+		//Daje nam to mozliwosc dodania legendy w pliku.
 		while(!reading.equals("end description")) {
 			reading = levelFile.readLine();
 		}
 		
+		//Odczyt wartosci puli punktow oraz liczby zyc.
+		//Nieznane parametry sa ignorowane.
+		//failsafe ogranicza ilosc linii parametrow do 100.
 		reading = levelFile.readLine();
 		while(!reading.equals("begin level") && failsafe<100) {
 			
@@ -53,13 +63,21 @@ public class LevelParser {
 			failsafe++;
 		}
 		
+		//Odczyt tablicy znakow 20x15.
+		//Znaki reprezentuja obiekty wg. legendy.
+		//Nowe linie sa ignorowane.
 		for(int i=0; i<20; i++) {
 			for(int j=0; j<15; j++) {
 				objTypes[i][j] = (char) levelFile.read();
+				
+				//Szczegolny przypadek: pozycja kulki.
+				//Tworzony jest obiekt typu "Air".
 				if((objTypes[i][j]) =='k'){
 						objTypes[i][j] = '.';
 						canvas.ball.setPos(j*50, i*50);
 				}
+				
+				
 				if(objTypes[i][j] == '\r' || objTypes[i][j] == '\n') {
 					objTypes[i][j] = (char) levelFile.read();
 					if(objTypes[i][j] == '\r' || objTypes[i][j] == '\n') {
@@ -68,9 +86,11 @@ public class LevelParser {
 				}
 			}
 		}
-		
+		//Zamykamy plik.
 		levelFile.close();
 		
+		//Tworzenie obiektow gry na podstawie znakow z tablicy.
+		//Kazdy obiekt otrzymuje pozycje na wzorcowym polu gry 750x1000.
 		for(int i=0; i<20; i++) {
 			for(int j=0; j<15; j++) {
 				if(objTypes[i][j] == 'x') {
@@ -107,8 +127,12 @@ public class LevelParser {
 			}
 		}
 		
+		//Przekazanie tablicy obiektow gry do pola rysowania.
 		canvas.tileObjects = tileObjects;
 		
+		//Tworzenie okna gry.
+		//TODO: Parser bedzie jedynie tworzyl obiekty i zapisywal je w swoich polach.
+		//Okno docelowo tworzone bedzie poza parserem.
 		GameWindow window = new GameWindow("Kulka", canvas, lives, pool);
 		
 		return window;

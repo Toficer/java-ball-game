@@ -12,6 +12,9 @@ import java.awt.image.ImageObserver;
 
 public class GravityOrb extends GameObject{
 	
+	/**
+	 * Konstruktor pozwala na wybranie poziomu zmiany grawitacji po zebraniu kuli.
+	 */
 	GravityOrb(int change){
 		this.change = change;
 	}
@@ -20,7 +23,10 @@ public class GravityOrb extends GameObject{
 
 	Image gravup = Toolkit.getDefaultToolkit().getImage("gravup.png");
 	Image gravdown = Toolkit.getDefaultToolkit().getImage("gravdown.png");
-	
+	/**
+	 * Metoda rysowania obiektu przyjmuje kontekst graficzny canvasu, na ktorym bedzie on rysowany.
+	 * Wybierany jest odpowiedni obrazek w zaleznosci od tego, jaka zmiane grawitacji wprowadza kula.
+	 */
 	public void paintInCanvas(Graphics g, ImageObserver observer) {
 		
 		if(change>0) g.drawImage(gravup, drawingPosx, drawingPosy, d1, d2, observer);
