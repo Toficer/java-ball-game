@@ -21,9 +21,9 @@ public class LevelParser {
 		
 		//Deklaracja wszystkich niezbednych zmiennych i obiektow.
 		GameCanvas canvas = new GameCanvas();
-		GameObject[][] tileObjects = new GameObject[20][15];
-		char[][] objTypes = new char[20][15];
-		int pool=1, lives=1;
+		GameObject[][] tileObjects = new GameObject[40][30];
+		char[][] objTypes = new char[40][30];
+		int pool=1, lives=1, poolDecay = 0;
 		
 		FileInputStream input = new FileInputStream(name);
 		BufferedInputStream levelInput = new BufferedInputStream(input);
@@ -56,6 +56,10 @@ public class LevelParser {
 				reading = reading.replaceAll("\\D+","");
 				lives = Integer.parseInt(reading);
 			}
+			else if(reading.contains("pdecay")) {
+				reading = reading.replaceAll("\\D+","");
+				poolDecay = Integer.parseInt(reading);
+			}
 			else{
 				System.out.println("UNKNOWN PARAMETER, IGNORING");
 			}
@@ -66,15 +70,16 @@ public class LevelParser {
 		//Odczyt tablicy znakow 20x15.
 		//Znaki reprezentuja obiekty wg. legendy.
 		//Nowe linie sa ignorowane.
-		for(int i=0; i<20; i++) {
-			for(int j=0; j<15; j++) {
+		for(int i=0; i<40; i++) {
+			for(int j=0; j<30; j++) {
 				objTypes[i][j] = (char) levelFile.read();
 				
 				//Szczegolny przypadek: pozycja kulki.
 				//Tworzony jest obiekt typu "Air".
 				if((objTypes[i][j]) =='k'){
 						objTypes[i][j] = '.';
-						canvas.ball.setPos(j*50, i*50);
+						canvas.ball.setPos(j*25 +1, i*25 + 1);
+						canvas.ball.setOriginalPos(j*25 + 1, i*25 +1);
 				}
 				
 				
@@ -91,8 +96,8 @@ public class LevelParser {
 		
 		//Tworzenie obiektow gry na podstawie znakow z tablicy.
 		//Kazdy obiekt otrzymuje pozycje na wzorcowym polu gry 750x1000.
-		for(int i=0; i<20; i++) {
-			for(int j=0; j<15; j++) {
+		for(int i=0; i<40; i++) {
+			for(int j=0; j<30; j++) {
 				if(objTypes[i][j] == 'x') {
 					tileObjects[i][j] = new Wall();
 				}
@@ -123,7 +128,7 @@ public class LevelParser {
 				else{
 					tileObjects[i][j] = new Air();
 				}
-				tileObjects[i][j].setPos(j*50, i*50);
+				tileObjects[i][j].setPos(j*25, i*25);
 			}
 		}
 		
@@ -133,7 +138,7 @@ public class LevelParser {
 		//Tworzenie okna gry.
 		//TODO: Parser bedzie jedynie tworzyl obiekty i zapisywal je w swoich polach.
 		//Okno docelowo tworzone bedzie poza parserem.
-		GameWindow window = new GameWindow("Kulka", canvas, lives, pool);
+		GameWindow window = new GameWindow("Kulka", canvas, lives, pool, poolDecay);
 		
 		return window;
 	}

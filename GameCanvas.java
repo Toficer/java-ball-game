@@ -7,12 +7,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.JPanel;
+
 /**
  * Obszar rysowania gry. Zawiera liste obiektow oraz wylicza rozmiar pola, co przeklada sie na rozmiar tych obiektow na ekranie.
  * @author Rafal Raczynski
  */
 
-public class GameCanvas extends Canvas{
+public class GameCanvas extends JPanel{
     Image portal = Toolkit.getDefaultToolkit().getImage("portal.png");
     Image brick = Toolkit.getDefaultToolkit().getImage("brick.png");
     
@@ -21,7 +23,7 @@ public class GameCanvas extends Canvas{
 	Color airColor = Color.lightGray;
 	
 	public Dimension getPreferredSize() {
-		int h=900;
+		int h=1000;
 		int w = 3*h/4;
 		return new Dimension(w,h);
 	}
@@ -29,26 +31,24 @@ public class GameCanvas extends Canvas{
 	public void paint(Graphics g) {
 		
 		//Metoda wylicza rozmiar komorki prostokatnej siatki obiektow na ekranie.
-		Dimension size2 = getSize();
-		int d1 = size2.width/15;
-		int d2 = size2.height/20;
+		Dimension size = getSize();
+		int d1 = size.width/30;
+		int d2 = size.height/40;
 		
-		//Offset obecnie nieuzywany, ale we wczesniejszej wersji rysowania pozwalal na centrowanie planszy.
-		//Prawdopodobie zostanie usuniety.
-		//int xoffset = (size2.width%15)/2;
-		//int yoffset = (size2.height%20)/2;
+		g.setColor(Color.lightGray);
+		g.fillRect(0, 0, size.width, size.height);
 		
-		for (int i=0; i<15; i++) {
-			for (int j=0; j<20; j++) {
+		for (int i=0; i<30; i++) {
+			for (int j=0; j<40; j++) {
 				
 				tileObjects[j][i].setDimensions((int)(d1), (int)(d2));
-				tileObjects[j][i].setDrawingPos(size2.width, size2.height, 0, 0);
+				tileObjects[j][i].setDrawingPos(size.width, size.height, 0, 0);
 				
 				if(tileObjects[j][i] instanceof Wall) {
 					((Wall) tileObjects[j][i]).paintInCanvas(g, this);
 				}
 				else if(tileObjects[j][i] instanceof Air) {
-					((Air) tileObjects[j][i]).paintInCanvas(g, airColor);
+					//((Air) tileObjects[j][i]).paintInCanvas(g, airColor);
 				}
 				else if(tileObjects[j][i] instanceof Portal) {
 					((Portal) tileObjects[j][i]).paintInCanvas(g, this);
@@ -66,7 +66,7 @@ public class GameCanvas extends Canvas{
 		}
 		//Kulka otrzymuje rozmiary i pozycje oraz jest rysowana.
 		ball.setDimensions((int)(d1/1.5), (int)(d2/1.5));
-		ball.setDrawingPos(size2.width, size2.height, 0, 0);
+		ball.setDrawingPos(size.width, size.height, 0, 0);
 		ball.paintInCanvas(g);
 	}
 

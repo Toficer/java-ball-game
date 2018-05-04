@@ -11,9 +11,9 @@ public class GameObject extends Component{
 	
 	//Pozycja absolutna na polu gry 750x1000.
 	//Od niej zalezec bedzie obliczanie kolizji itd.
-	int posx = 10, posy = 10;
+	int posx = 0, posy = 0;
 	//Pozycja na polu rysowania.
-	int drawingPosx=10, drawingPosy=10;
+	int drawingPosx=0, drawingPosy=0;
 	//Wymiary.
 	int d1 = 10, d2 = 10;
 	
@@ -39,5 +39,9 @@ public class GameObject extends Component{
 	public void setDimensions(int d1, int d2) {
 		this.d1 = d1;
 		this.d2 = d2;
+	}
+	
+	public boolean checkCollision(int ballx, int bally) {
+		return (ballx >= (posx - 16) && ballx <= (posx+25) && bally>=(posy-16) && bally<=(posy+25));
 	}
 }

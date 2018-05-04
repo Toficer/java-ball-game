@@ -19,5 +19,10 @@ public class Portal extends GameObject{
 	public void paintInCanvas(Graphics g, ImageObserver observer) {
 		g.drawImage(portal, drawingPosx, drawingPosy, d1, d2, observer);
 	}
+	
+	public boolean checkCollision(int ballx, int bally) {
+		int distance = (int)Math.sqrt( ((ballx + 8)-(posx+12))*((ballx + 8)-(posx+12)) + ((bally + 8)-(posy+12))*((bally + 8)-(posy+12)) );
+		return (distance <= 20);
+	}
 
 }
