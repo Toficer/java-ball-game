@@ -1,13 +1,11 @@
 package BallGame;
 
-import java.awt.Component;
-
 /**
  * Obiekt gry: podstawowy obiekt gry.
  * @author Rafal Raczynski
  */
 
-public class GameObject extends Component{
+public class GameObject{
 	
 	//Pozycja absolutna na polu gry 750x1000.
 	//Od niej zalezec bedzie obliczanie kolizji itd.

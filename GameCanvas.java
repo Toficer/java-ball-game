@@ -1,6 +1,5 @@
 package BallGame;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,12 +14,12 @@ import javax.swing.JPanel;
  */
 
 public class GameCanvas extends JPanel{
-    Image portal = Toolkit.getDefaultToolkit().getImage("portal.png");
-    Image brick = Toolkit.getDefaultToolkit().getImage("brick.png");
+    Image pauseImage = Toolkit.getDefaultToolkit().getImage("pause.png");
     
 	GameObject[][] tileObjects;
 	PlayerBall ball = new PlayerBall();
 	Color airColor = Color.lightGray;
+	boolean pause = false;
 	
 	public Dimension getPreferredSize() {
 		int h=1000;
@@ -68,6 +67,18 @@ public class GameCanvas extends JPanel{
 		ball.setDimensions((int)(d1/1.5), (int)(d2/1.5));
 		ball.setDrawingPos(size.width, size.height, 0, 0);
 		ball.paintInCanvas(g);
+		
+		if(pause) {
+			g.setColor(new Color(255,255,255,170));
+			g.fillRect(0, 0, size.width, size.height);
+			g.setColor(Color.black);
+			g.fillRect(size.width/2-(5*d1), size.height/2-(3*d2), 10*d1, 6*d2);
+			g.drawImage(pauseImage, size.width/2-(5*d1), size.height/2-(3*d2), 10*d1, 6*d2, this);
+		}
+	}
+	
+	public void togglePause() {
+		pause = !pause;
 	}
 
 }

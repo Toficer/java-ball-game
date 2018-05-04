@@ -3,7 +3,6 @@ package BallGame;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.WindowAdapter;
@@ -14,7 +13,7 @@ import javax.swing.JFrame;
  * Glowne okno gry. Zawiera plansze gry oraz podstawowe przyciski pozwalajace kontrolowac aplikacje.
  * @author Rafal Raczynski
  */
-public class GameWindow extends Frame{
+public class GameWindow extends JFrame{
 	
 	int lives=1;
 	int pool=1;
@@ -22,12 +21,12 @@ public class GameWindow extends Frame{
 	int poolDecay = 0;
 	GameCanvas gameCanvas;
 	Label lives_label, pool_label, score_label;
+	Button pauseButton, exitButton;
 	
 	GameWindow(String title, GameCanvas canvas, int lives_n, int pool_n, int poolDecay_n){
 		
 		super(title);
 		gameCanvas = canvas;
-		
 		pool = pool_n;
 		lives = lives_n;
 		poolDecay = poolDecay_n;
@@ -36,8 +35,8 @@ public class GameWindow extends Frame{
 		pool_label = new Label("PULA: " + pool);
 		score_label = new Label("WYNIK: " + score);
 		
-		Button exitButton = new Button("WYJSCIE");
-		Button pauseButton = new Button("PAUZA");
+		exitButton = new Button("WYJSCIE");
+		pauseButton = new Button("PAUZA");
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
