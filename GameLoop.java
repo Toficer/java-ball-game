@@ -21,7 +21,7 @@ public class GameLoop implements Runnable{
 		while(gameEnd == false) {
 			
 			try {
-				Thread.sleep(19);
+				Thread.sleep(21);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -56,6 +56,7 @@ public class GameLoop implements Runnable{
 				
 				game.window.gameCanvas.ball.setPos(game.window.getBallPosx()+game.window.getBallhVel()+hBooster, game.window.getBallPosy()+game.window.getBallvVel()+vBooster);
 				game.window.gameCanvas.repaint();
+				game.window.repaint();
 				game.window.reducePool();
 				
 				hBooster = 0;

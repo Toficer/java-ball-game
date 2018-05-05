@@ -14,6 +14,7 @@ public class BallGame {
 	static GameWindow window;
 	static MenuWindow mwindow;
 	static TopScoresWindow swindow;
+	static HelpWindow hwindow;
 	static boolean isPaused = false;
 	Object[][] tileList;
 	
@@ -37,13 +38,14 @@ public class BallGame {
 		mwindow.setVisible(true);
 		
 		swindow = new TopScoresWindow("Najlepsze Wyniki");
+		hwindow = new HelpWindow("Pomoc");
 		
 		Controller controller = new Controller(game);
 		new Thread(controller).start();
 		
 		GameLoop loop = new GameLoop(controller, game);
-		Thread th2 = new Thread(loop);
-		th2.start();
+		new Thread(loop).start();
+		
 		isPaused=true;
 	}
 	

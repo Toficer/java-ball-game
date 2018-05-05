@@ -1,12 +1,12 @@
 package BallGame;
 
-import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -15,7 +15,7 @@ import javax.swing.JFrame;
  */
 public class MenuWindow extends JFrame{
 	
-	Button startButton, scoreButton, exitButton;
+	JButton startButton, scoreButton, exitButton, helpButton;
 	
 	MenuWindow(String title, BallGame game){
 		super(title);
@@ -28,14 +28,15 @@ public class MenuWindow extends JFrame{
 		
 		Panel mainPanel = new Panel(new GridLayout(0,1));
 		
-		startButton = new Button("START GRY");
-		scoreButton = new Button("NAJLEPSZE WYNIKI");
-		exitButton = new Button("WYJSCIE");
+		startButton = new JButton("START GRY");
+		scoreButton = new JButton("NAJLEPSZE WYNIKI");
+		exitButton = new JButton("WYJSCIE");
+		helpButton = new JButton("POMOC");
 		
 		mainPanel.add(startButton);
 		mainPanel.add(scoreButton);
-		mainPanel.add(new Button("POMOC"));
-		mainPanel.add(new Button("SERWER"));
+		mainPanel.add(helpButton);
+		mainPanel.add(new JButton("SERWER"));
 		mainPanel.add(exitButton);
 		
 		add(mainPanel);

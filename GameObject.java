@@ -40,6 +40,6 @@ public class GameObject{
 	}
 	
 	public boolean checkCollision(int ballx, int bally) {
-		return (ballx >= (posx - 16) && ballx <= (posx+25) && bally>=(posy-16) && bally<=(posy+25));
+		return (ballx >= (posx - 15) && ballx <= (posx+24) && bally>=(posy-15) && bally<=(posy+24));
 	}
 }

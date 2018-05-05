@@ -1,14 +1,17 @@
 package BallGame;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
+
 import java.awt.Color;
-import java.awt.Label;
-import java.awt.Panel;
+import java.awt.FlowLayout;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 /**
  * Glowne okno gry. Zawiera plansze gry oraz podstawowe przyciski pozwalajace kontrolowac aplikacje.
  * @author Rafal Raczynski
@@ -20,8 +23,8 @@ public class GameWindow extends JFrame{
 	int score=0;
 	int poolDecay = 0;
 	GameCanvas gameCanvas;
-	Label lives_label, pool_label, score_label;
-	Button pauseButton, exitButton;
+	JLabel lives_label, pool_label, score_label;
+	JButton pauseButton, exitButton;
 	
 	GameWindow(String title, GameCanvas canvas, int lives_n, int pool_n, int poolDecay_n){
 		
@@ -31,12 +34,12 @@ public class GameWindow extends JFrame{
 		lives = lives_n;
 		poolDecay = poolDecay_n;
 		
-		lives_label = new Label("ZYCIA: " + lives);
-		pool_label = new Label("PULA: " + pool);
-		score_label = new Label("WYNIK: " + score);
+		lives_label = new JLabel("ZYCIA: " + lives);
+		pool_label = new JLabel("PULA: " + pool);
+		score_label = new JLabel("WYNIK: " + score);
 		
-		exitButton = new Button("WYJSCIE");
-		pauseButton = new Button("PAUZA");
+		exitButton = new JButton("WYJSCIE");
+		pauseButton = new JButton("PAUZA");
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
@@ -44,18 +47,21 @@ public class GameWindow extends JFrame{
 			}	
 		});
 		
-		Panel headerPanel = new Panel(new BorderLayout());
+		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.add(pauseButton, BorderLayout.EAST);
 		headerPanel.add(exitButton, BorderLayout.WEST);
 		headerPanel.setBackground(Color.lightGray);
 		
-		Panel footerPanel = new Panel(new BorderLayout());
+		JPanel footerPanel = new JPanel(new BorderLayout());
+		JPanel leftPanel = new JPanel(new FlowLayout());
+		leftPanel.setBackground(Color.lightGray);
 		footerPanel.add(lives_label, BorderLayout.EAST);
-		footerPanel.add(score_label, BorderLayout.WEST);
-		footerPanel.add(pool_label, BorderLayout.CENTER);
+		leftPanel.add(score_label);
+		leftPanel.add(pool_label);
+		footerPanel.add(leftPanel, BorderLayout.WEST);
 		footerPanel.setBackground(Color.lightGray);
 		
-		Panel centralPanel = new Panel(new BorderLayout());
+		JPanel centralPanel = new JPanel(new BorderLayout());
 		centralPanel.setBackground(Color.lightGray);
 		centralPanel.add(gameCanvas, BorderLayout.CENTER);
 		add(centralPanel, BorderLayout.CENTER);

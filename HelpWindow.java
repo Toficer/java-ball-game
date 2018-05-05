@@ -1,21 +1,21 @@
 package BallGame;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Panel;
+import java.awt.Label;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 /**
  * Okno pomocy, WIP. Docelowo zawierac bedzie zasady gry i opisy obiektow.
  * @author Rafal Raczynski
  */
 public class HelpWindow extends Frame{
-	
-	HelpCanvas help;
-	
+
 	HelpWindow(String title){
 		super(title);
 		addWindowListener(new WindowAdapter() {
@@ -25,12 +25,12 @@ public class HelpWindow extends Frame{
 			
 		});
 		
-		help = new HelpCanvas();
-		Panel helpPanel = new Panel(new BorderLayout());
-		helpPanel.add(help, BorderLayout.CENTER);
-		Panel footerPanel = new Panel(new BorderLayout());
+		JPanel helpPanel = new JPanel(new BorderLayout());
+		helpPanel.setBackground(Color.lightGray);
+		helpPanel.add(new Label("Radz sobie."), BorderLayout.NORTH);
+		JPanel footerPanel = new JPanel(new BorderLayout());
 		footerPanel.setBackground(Color.lightGray);
-		footerPanel.add(new Button("OK"), BorderLayout.EAST);
+		footerPanel.add(new JButton("OK"), BorderLayout.EAST);
 		helpPanel.add(footerPanel, BorderLayout.SOUTH);
 		
 		add(helpPanel);
@@ -38,8 +38,8 @@ public class HelpWindow extends Frame{
 	}
 	
 	public Dimension getPreferredSize() {
-		int h = 470;
-		int w = 700;
+		int h = 100;
+		int w = 250;
 		return new Dimension(w,h);
 	}
 

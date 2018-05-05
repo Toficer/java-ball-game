@@ -26,20 +26,27 @@ public class Controller implements Runnable{
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					isAcceleratingVert = true;
 					isSlowingVert = false;
-					System.out.println("up");
 		        }
 
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					isAcceleratingHor = true;
 					isSlowingHor = false;
 					horDirection = false;
-					System.out.println("r");
 		        }
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					isAcceleratingHor = true;
 					isSlowingHor = false;
 					horDirection = true;
-					System.out.println("l");
+		        }
+				if (e.getKeyCode() == KeyEvent.VK_P) {
+					if(game.isPaused) {
+			        	game.unpause();
+			        }
+			        else {
+			        	game.pause();
+			        }
+			        game.window.gameCanvas.togglePause();
+		        	game.window.gameCanvas.repaint();
 		        }
 			}
 
@@ -47,18 +54,15 @@ public class Controller implements Runnable{
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					isAcceleratingVert = false;
 					isSlowingVert = true;
-					System.out.println("up rel");
 		        }
 
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					isAcceleratingHor = false;
 					isSlowingHor = true;
-					System.out.println("l rel");
 		        }
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					isAcceleratingHor = false;
 					isSlowingHor = true;
-					System.out.println("r rel");
 		        }
 			}
 
@@ -124,6 +128,24 @@ public class Controller implements Runnable{
 		    }
 		};
 		game.mwindow.exitButton.addActionListener(al5);
+		
+		ActionListener al6 = new ActionListener()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	game.swindow.dispose();
+		    }
+		};
+		game.swindow.okButton.addActionListener(al6);
+		
+		ActionListener al7 = new ActionListener()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        game.hwindow.setVisible(true);
+		    }
+		};
+		game.mwindow.helpButton.addActionListener(al7);
 				
 	}
 	
