@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Kontroler odpowiada za obsluge flag klawiatury i przyciskow.
+ * @author Rafal Raczynski
+ */
 public class Controller implements Runnable{
 	
 	boolean isAcceleratingVert = false;
@@ -71,7 +75,7 @@ public class Controller implements Runnable{
 			
 		});
 		
-		ActionListener al1 = new ActionListener()
+		ActionListener al1 = new ActionListener() //przycisk startu gry - wylaczenie pauzy i wyswietlenie okna gry.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -83,7 +87,7 @@ public class Controller implements Runnable{
 		};
 		BallGame.mwindow.startButton.addActionListener(al1);
 		
-		ActionListener al2 = new ActionListener()
+		ActionListener al2 = new ActionListener() //przycisk pauzy - wlacza/wylacza pauze i wyswietla informacje o niej.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -99,7 +103,7 @@ public class Controller implements Runnable{
 		};
 		game.window.pauseButton.addActionListener(al2);
 		
-		ActionListener al3 = new ActionListener()
+		ActionListener al3 = new ActionListener() //przycisk wyjscia z gry (okno gry) - zamyka program.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -109,7 +113,7 @@ public class Controller implements Runnable{
 		};
 		game.window.exitButton.addActionListener(al3);
 		
-		ActionListener al4 = new ActionListener()
+		ActionListener al4 = new ActionListener() //przycisk najlepszych wynikow - wyswietla okno najlepszych wynikow.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -118,7 +122,7 @@ public class Controller implements Runnable{
 		};
 		game.mwindow.scoreButton.addActionListener(al4);
 		
-		ActionListener al5 = new ActionListener()
+		ActionListener al5 = new ActionListener() //przycisk wyjscia z gry (menu) - zamyka program.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -129,7 +133,7 @@ public class Controller implements Runnable{
 		};
 		game.mwindow.exitButton.addActionListener(al5);
 		
-		ActionListener al6 = new ActionListener()
+		ActionListener al6 = new ActionListener() //przycisk zamkniecia okna najlepszych wynikow.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -138,7 +142,7 @@ public class Controller implements Runnable{
 		};
 		game.swindow.okButton.addActionListener(al6);
 		
-		ActionListener al7 = new ActionListener()
+		ActionListener al7 = new ActionListener() //przycisk pomocy - wyswietla okno pomocy.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -146,6 +150,15 @@ public class Controller implements Runnable{
 		    }
 		};
 		game.mwindow.helpButton.addActionListener(al7);
+		
+		ActionListener al8 = new ActionListener() //przycisk zamkniecia okna pomocy.
+				{
+				    public void actionPerformed(ActionEvent e)
+				    {
+				        game.hwindow.dispose();
+				    }
+				};
+				game.hwindow.okButton.addActionListener(al8);
 				
 	}
 	

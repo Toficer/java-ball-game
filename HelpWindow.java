@@ -15,6 +15,8 @@ import javax.swing.JPanel;
  * @author Rafal Raczynski
  */
 public class HelpWindow extends Frame{
+	
+	JButton okButton;
 
 	HelpWindow(String title){
 		super(title);
@@ -25,12 +27,14 @@ public class HelpWindow extends Frame{
 			
 		});
 		
+		okButton = new JButton("OK");
+		
 		JPanel helpPanel = new JPanel(new BorderLayout());
 		helpPanel.setBackground(Color.lightGray);
 		helpPanel.add(new Label("Radz sobie."), BorderLayout.NORTH);
 		JPanel footerPanel = new JPanel(new BorderLayout());
 		footerPanel.setBackground(Color.lightGray);
-		footerPanel.add(new JButton("OK"), BorderLayout.EAST);
+		footerPanel.add(okButton, BorderLayout.EAST);
 		helpPanel.add(footerPanel, BorderLayout.SOUTH);
 		
 		add(helpPanel);

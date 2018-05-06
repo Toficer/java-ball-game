@@ -23,7 +23,7 @@ public class LevelParser {
 		GameCanvas canvas = new GameCanvas();
 		GameObject[][] tileObjects = new GameObject[40][30];
 		char[][] objTypes = new char[40][30];
-		int pool=1, lives=1, poolDecay = 0;
+		int pool=1, lives=1, poolDecay = 0, gravity=1;
 		
 		FileInputStream input = new FileInputStream(name);
 		BufferedInputStream levelInput = new BufferedInputStream(input);
@@ -59,6 +59,10 @@ public class LevelParser {
 			else if(reading.contains("pdecay")) {
 				reading = reading.replaceAll("\\D+","");
 				poolDecay = Integer.parseInt(reading);
+			}
+			else if(reading.contains("gravity")) {
+				reading = reading.replaceAll("\\D+","");
+				gravity = Integer.parseInt(reading);
 			}
 			else{
 				System.out.println("UNKNOWN PARAMETER, IGNORING");
@@ -138,7 +142,7 @@ public class LevelParser {
 		//Tworzenie okna gry.
 		//TODO: Parser bedzie jedynie tworzyl obiekty i zapisywal je w swoich polach.
 		//Okno docelowo tworzone bedzie poza parserem.
-		GameWindow window = new GameWindow("Kulka", canvas, lives, pool, poolDecay);
+		GameWindow window = new GameWindow("Kulka", canvas, lives, pool, poolDecay, gravity);
 		
 		return window;
 	}

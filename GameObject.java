@@ -38,7 +38,11 @@ public class GameObject{
 		this.d1 = d1;
 		this.d2 = d2;
 	}
-	
+	/**
+	 * Metoda ta sprawdza, czy kulka o podanych X i Y zderza sie z obiektem.
+	 * @param ballx Pozycja kulki na osi OX
+	 * @param bally Pozycja kulki na osi OY
+	 */
 	public boolean checkCollision(int ballx, int bally) {
 		return (ballx >= (posx - 15) && ballx <= (posx+24) && bally>=(posy-15) && bally<=(posy+24));
 	}

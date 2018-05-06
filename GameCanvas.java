@@ -76,7 +76,9 @@ public class GameCanvas extends JPanel{
 			g.drawImage(pauseImage, size.width/2-(5*d1), size.height/2-(3*d2), 10*d1, 6*d2, this);
 		}
 	}
-	
+	/**
+	 * Pozwala wlaczyc lub wylaczyc rysowanie ekranu pauzy.
+	 */
 	public void togglePause() {
 		pause = !pause;
 	}
