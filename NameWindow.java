@@ -1,5 +1,6 @@
 package BallGame;
 
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
@@ -17,7 +18,12 @@ import java.awt.event.WindowEvent;
  * Okno wyboru pseudonimu gracza. Zawiera pole tekstowe umozliwiajace wprowadzenie tekstu oraz przyciski nawigacji.
  * @author Rafal Raczynski
  */
-public class NameWindow extends Frame{
+public class NameWindow extends JFrame{
+
+	JTextField nameField;
+	JButton startButton;
+	JButton cancelButton;
+	JLabel infoLabel;
 	
 	NameWindow(String title){
 		super(title);
@@ -27,15 +33,20 @@ public class NameWindow extends Frame{
 			}
 			
 		});
+
+		nameField = new JTextField();
+		startButton = new JButton("START GRY");
+		cancelButton = new JButton("ANULUJ");
+		infoLabel = new JLabel("Podaj swoj nick");
 		
-		Panel mainPanel = new Panel(new GridLayout(0,1));
+		JPanel mainPanel = new JPanel(new GridLayout(0,1));
 		mainPanel.setBackground(Color.lightGray);
-		mainPanel.add(new Label("Podaj swoj nick:"));
-		mainPanel.add(new TextField());
+		mainPanel.add(infoLabel);
+		mainPanel.add(nameField);
 		
-		Panel buttonPanel = new Panel(new BorderLayout());
-		buttonPanel.add(new Button("START GRY"), BorderLayout.EAST);
-		buttonPanel.add(new Button("ANULUJ"), BorderLayout.WEST);
+		JPanel buttonPanel = new JPanel(new BorderLayout());
+		buttonPanel.add(startButton, BorderLayout.EAST);
+		buttonPanel.add(cancelButton, BorderLayout.WEST);
 		mainPanel.add(buttonPanel);
 		add(mainPanel);
 		pack();

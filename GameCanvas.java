@@ -22,7 +22,7 @@ public class GameCanvas extends JPanel{
 	boolean pause = false;
 	
 	public Dimension getPreferredSize() {
-		int h=900;
+		int h=800;
 		int w = 3*h/4;
 		return new Dimension(w,h);
 	}

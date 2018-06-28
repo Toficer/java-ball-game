@@ -1,0 +1,166 @@
+x - sciana
+. - powietrze
+k - kulka
+s - gwiazdka
+u,d,r,l - booster gora/dol/prawo/lewo
+n,m - grawitacja -/+
+p - portal (cel)
+end description
+-------------------------------------
+levelnumber 1
+-------------------------------------
+pool = 1000
+lives = 3
+pdecay = 1
+gravity = 0.5
+starvalue = 500
+boosterstrength = 3
+gballvalue = 0.6
+-------------------------------------
+begin level
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x............................x
+x............................x
+x..................k.........x
+x.......x....................x
+x...s...x....................x
+x.......x....................x
+xxxxxxxxxxxxxxxxx.....xxxxxxxx
+x...............x............x
+x.....s.s.......x............x
+x..s.......s....x...ludr.....x
+x...............x...ludr.....x
+x....xxxxx......x...ludr.....x
+x............................x
+x............................x
+x............................x
+xxxxxxxxxxxxxxxxxxxxxxxxx....x
+x............................x
+x...................lllllll..x
+x.........s.......s.lllllll..x
+x...................lllllll..x
+x............................x
+x.....xxxxxxxxxxxxxxxxxxxxxxxx
+x............................x
+x..........................n.x
+x............................x
+x..................x.......m.x
+x........x...sss...x.........x
+x........x.........x.........x
+x..xxxxxxxxxxxxxxxxx.........x
+x....x.............x.........x
+x....x.............x....s....x
+x....x..lur........x....s....x
+x....x..lpr........x..s...s..x
+x....x..ldr........x.........x
+x............................x
+x............................x
+x............................x
+x............................x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+-------------------------------------
+levelnumber 2
+-------------------------------------
+pool = 10000
+lives = 5
+pdecay = 1
+gravity = 1
+starvalue = 100
+boosterstrength = 2
+gballvalue = 1
+-------------------------------------
+begin level
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x............................x
+x............................x
+x............................x
+x...pssssss..................x
+x............................x
+x............................x
+x............................x
+xxxxxxxxxxxxxxxxxxxxsssssssssx
+x............................x
+x............................x
+x............................x
+x............................x
+x....sss...........ss........x
+x....sss...........ss........x
+x....sss.....................x
+x....sss.....................x
+x....sss...................m.x
+x....sss.....................x
+x....sss...xxxxxxxxxxxxxxxxxxx
+x............................x
+x............................x
+x............................x
+x..............sss...........x
+x............................x
+x............................x
+x............................x
+xxxxxxxxxxxxxxxxdddddddddddddx
+x..............xdddddddddddddx
+x..k...........xdddddddddddddx
+x..............xdddddddddddddx
+x............................x
+x..............s.............x
+x..............s.............x
+x..............s.............x
+x............................x
+x..............x.............x
+x..............x.............x
+x..............x.............x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+-------------------------------------
+levelnumber 3
+-------------------------------------
+pool = 10000
+lives = 2
+pdecay = 3
+gravity = 1
+starvalue = 700
+boosterstrength = 3
+gballvalue = 2
+-------------------------------------
+begin level
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x............................x
+x............................x
+x............................x
+x............................x
+x..........k.........p.......x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+xddddddddddddddddddddddddddddx
+x............................x
+x............................x
+x........sssssssssssss.......x
+x........sssssssssssss.......x
+x........sssssssssssss.......x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+x............................x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

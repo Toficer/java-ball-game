@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 /**
  * Kontroler odpowiada za obsluge flag klawiatury i przyciskow.
@@ -11,7 +12,8 @@ import java.awt.event.KeyListener;
  */
 public class Controller implements Runnable{
 	
-	boolean isAcceleratingVert = false;
+	boolean isAcceleratingUp = false;
+	boolean isAcceleratingDown = false;
 	boolean isSlowingVert = true;
 	boolean isAcceleratingHor = false;
 	boolean isSlowingHor = false;
@@ -28,9 +30,15 @@ public class Controller implements Runnable{
 			
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					isAcceleratingVert = true;
+					isAcceleratingUp = true;
+					isAcceleratingDown = false;
 					isSlowingVert = false;
 		        }
+				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					isAcceleratingUp = false;
+					isAcceleratingDown = true;
+					isSlowingVert = false;
+				}
 
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					isAcceleratingHor = true;
@@ -56,9 +64,15 @@ public class Controller implements Runnable{
 
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					isAcceleratingVert = false;
+					isAcceleratingUp = false;
+					isAcceleratingDown = false;
 					isSlowingVert = true;
 		        }
+				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					isAcceleratingUp = false;
+					isAcceleratingDown = false;
+					isSlowingVert = true;
+				}
 
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					isAcceleratingHor = false;
@@ -75,19 +89,48 @@ public class Controller implements Runnable{
 			
 		});
 		
-		ActionListener al1 = new ActionListener() //przycisk startu gry - wylaczenie pauzy i wyswietlenie okna gry.
+		ActionListener startListener = new ActionListener() //przycisk startu gry - wylaczenie pauzy i wybor nicku.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
-		        game.window.setVisible(true);
-		        game.mwindow.dispose();
-		        game.window.gameCanvas.ball.setPos(game.window.gameCanvas.ball.originalposx, game.window.gameCanvas.ball.originalposy);
-		       	game.unpause();
+		        game.nwindow.setVisible(true);
+		        game.mwindow.setVisible(false);
 		    }
 		};
-		BallGame.mwindow.startButton.addActionListener(al1);
-		
-		ActionListener al2 = new ActionListener() //przycisk pauzy - wlacza/wylacza pauze i wyswietla informacje o niej.
+		BallGame.mwindow.startButton.addActionListener(startListener);
+
+		ActionListener nameStartListener = new ActionListener() //przycisk startu gry - zamyka okno wyboru nicku i zaczyna gre.
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(!game.nwindow.nameField.getText().contains(" ") && game.nwindow.nameField.getText().length() > 0){
+					System.out.println("DEBUG_NAMELENGTH " + game.nwindow.nameField.getText().length());
+					game.playerName = game.nwindow.nameField.getText();
+					game.nwindow.infoLabel.setText("Podaj swoj nick");
+					game.window.setVisible(true);
+					game.nwindow.dispose();
+					game.window.gameCanvas.ball.setPos(game.window.gameCanvas.ball.originalposx, game.window.gameCanvas.ball.originalposy);
+					game.unpause();
+				}
+				else {
+					game.nwindow.infoLabel.setText("NIEPRAWIDLOWY NICK!");
+				}
+
+			}
+		};
+		BallGame.nwindow.startButton.addActionListener(nameStartListener);
+
+		ActionListener nameCancelListener = new ActionListener() //przycisk powrotu do menu - zamyka okno wyboru nicku.
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				game.nwindow.setVisible(false);
+				game.mwindow.setVisible(true);
+			}
+		};
+		BallGame.nwindow.cancelButton.addActionListener(nameCancelListener);
+
+		ActionListener pauseListener = new ActionListener() //przycisk pauzy - wlacza/wylacza pauze i wyswietla informacje o niej.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -101,9 +144,9 @@ public class Controller implements Runnable{
 	        	game.window.gameCanvas.repaint();
 		    }
 		};
-		game.window.pauseButton.addActionListener(al2);
+		game.window.pauseButton.addActionListener(pauseListener);
 		
-		ActionListener al3 = new ActionListener() //przycisk wyjscia z gry (okno gry) - zamyka program.
+		ActionListener exitGameListener = new ActionListener() //przycisk wyjscia z gry (okno gry) - zamyka program.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -111,18 +154,22 @@ public class Controller implements Runnable{
 		        System.exit(0);
 		    }
 		};
-		game.window.exitButton.addActionListener(al3);
+		game.window.exitButton.addActionListener(exitGameListener);
 		
-		ActionListener al4 = new ActionListener() //przycisk najlepszych wynikow - wyswietla okno najlepszych wynikow.
+		ActionListener scoreListener = new ActionListener() //przycisk najlepszych wynikow - wyswietla okno najlepszych wynikow.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
-		        game.swindow.setVisible(true);
+		    	try{
+					game.swindow.setVisible(true);
+					game.swindow.updateScoreText();
+				}
+		        catch(IOException ex){}
 		    }
 		};
-		game.mwindow.scoreButton.addActionListener(al4);
+		game.mwindow.scoreButton.addActionListener(scoreListener);
 		
-		ActionListener al5 = new ActionListener() //przycisk wyjscia z gry (menu) - zamyka program.
+		ActionListener exitMenuListener = new ActionListener() //przycisk wyjscia z gry (menu) - zamyka program.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -131,34 +178,44 @@ public class Controller implements Runnable{
 		        System.exit(0);
 		    }
 		};
-		game.mwindow.exitButton.addActionListener(al5);
+		game.mwindow.exitButton.addActionListener(exitMenuListener);
 		
-		ActionListener al6 = new ActionListener() //przycisk zamkniecia okna najlepszych wynikow.
+		ActionListener exitScoreListener = new ActionListener() //przycisk zamkniecia okna najlepszych wynikow.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
 		    	game.swindow.dispose();
 		    }
 		};
-		game.swindow.okButton.addActionListener(al6);
+		game.swindow.okButton.addActionListener(exitScoreListener);
 		
-		ActionListener al7 = new ActionListener() //przycisk pomocy - wyswietla okno pomocy.
+		ActionListener helpListener = new ActionListener() //przycisk pomocy - wyswietla okno pomocy.
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
 		        game.hwindow.setVisible(true);
 		    }
 		};
-		game.mwindow.helpButton.addActionListener(al7);
+		game.mwindow.helpButton.addActionListener(helpListener);
 		
-		ActionListener al8 = new ActionListener() //przycisk zamkniecia okna pomocy.
-				{
-				    public void actionPerformed(ActionEvent e)
+		ActionListener exitHelpListener = new ActionListener() //przycisk zamkniecia okna pomocy.
+		{
+			public void actionPerformed(ActionEvent e)
 				    {
 				        game.hwindow.dispose();
 				    }
-				};
-				game.hwindow.okButton.addActionListener(al8);
+		};
+		game.hwindow.okButton.addActionListener(exitHelpListener);
+
+		ActionListener exitEndListener = new ActionListener() //przycisk zamkniecia okna konca gry.
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				game.ewindow.dispose();
+				System.exit(0);
+			}
+		};
+		game.ewindow.okButton.addActionListener(exitEndListener);
 				
 	}
 	

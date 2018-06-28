@@ -17,13 +17,14 @@ import BallGame.DirectionalBooster.ArrowDirection;
 public class LevelParser {
 	
 	
-	GameWindow readLevelFile(String name) throws IOException{
+	GameLevelContainer readLevelFile(String name, int levelNumber) throws IOException{
 		
 		//Deklaracja wszystkich niezbednych zmiennych i obiektow.
 		GameCanvas canvas = new GameCanvas();
 		GameObject[][] tileObjects = new GameObject[40][30];
 		char[][] objTypes = new char[40][30];
-		int pool=1, lives=1, poolDecay = 0, gravity=1;
+		int pool=1, lives=1, poolDecay = 0, starvalue=100, boosterstrength=2;
+		double gballvalue = 0.5, gravity = 1;
 		
 		FileInputStream input = new FileInputStream(name);
 		BufferedInputStream levelInput = new BufferedInputStream(input);
@@ -39,6 +40,9 @@ public class LevelParser {
 		//Ignorujemy wszystko, co znajduje sie przed "end description".
 		//Daje nam to mozliwosc dodania legendy w pliku.
 		while(!reading.equals("end description")) {
+			reading = levelFile.readLine();
+		}
+		while(!reading.equals("levelnumber " + levelNumber)) {
 			reading = levelFile.readLine();
 		}
 		
@@ -61,8 +65,20 @@ public class LevelParser {
 				poolDecay = Integer.parseInt(reading);
 			}
 			else if(reading.contains("gravity")) {
+				reading = reading.replaceAll("gravity = ","");
+				gravity = Double.parseDouble(reading);
+			}
+			else if(reading.contains("starvalue")) {
 				reading = reading.replaceAll("\\D+","");
-				gravity = Integer.parseInt(reading);
+				starvalue = Integer.parseInt(reading);
+			}
+			else if(reading.contains("boosterstrength")) {
+				reading = reading.replaceAll("\\D+","");
+				boosterstrength = Integer.parseInt(reading);
+			}
+			else if(reading.contains("gballvalue")) {
+				reading = reading.replaceAll("gballvalue = ","");
+				gballvalue = Double.parseDouble(reading);
 			}
 			else{
 				System.out.println("UNKNOWN PARAMETER, IGNORING");
@@ -84,6 +100,7 @@ public class LevelParser {
 						objTypes[i][j] = '.';
 						canvas.ball.setPos(j*25 +1, i*25 + 1);
 						canvas.ball.setOriginalPos(j*25 + 1, i*25 +1);
+						canvas.ball.setDoublePos(j*25+1, i*25+1);
 				}
 				
 				
@@ -124,10 +141,10 @@ public class LevelParser {
 					tileObjects[i][j] = new DirectionalBooster(ArrowDirection.RIGHT);
 				}
 				else if(objTypes[i][j] == 'n') {
-					tileObjects[i][j] = new GravityOrb(-10);
+					tileObjects[i][j] = new GravityOrb(-gballvalue);
 				}
 				else if(objTypes[i][j] == 'm') {
-					tileObjects[i][j] = new GravityOrb(10);
+					tileObjects[i][j] = new GravityOrb(gballvalue);
 				}
 				else{
 					tileObjects[i][j] = new Air();
@@ -139,11 +156,29 @@ public class LevelParser {
 		//Przekazanie tablicy obiektow gry do pola rysowania.
 		canvas.tileObjects = tileObjects;
 		
-		//Tworzenie okna gry.
-		//TODO: Parser bedzie jedynie tworzyl obiekty i zapisywal je w swoich polach.
-		//Okno docelowo tworzone bedzie poza parserem.
-		GameWindow window = new GameWindow("Kulka", canvas, lives, pool, poolDecay, gravity);
-		
-		return window;
+		//Tworzenie kontenera z danymi gry.
+		GameLevelContainer container = new GameLevelContainer(canvas, tileObjects, lives, pool, poolDecay, gravity, starvalue, boosterstrength, gballvalue);
+		return container;
+	}
+	/**
+	 * Zwraca liczbe poziomow wykrytych w pliku
+	 * @param name nazwa pliku
+	 */
+	int getLevelCount(String name) throws IOException{
+		FileInputStream input = new FileInputStream(name);
+		BufferedInputStream levelInput = new BufferedInputStream(input);
+		InputStreamReader levelReader = new InputStreamReader(levelInput);
+		LineNumberReader levelFile = new LineNumberReader(levelReader);
+
+		int count = 0;
+		String reading = levelFile.readLine();
+		while(reading != null){
+			if(reading.contains("levelnumber")){
+				count++;
+			}
+			reading = levelFile.readLine();
+		}
+		levelFile.close();
+		return count;
 	}
 }

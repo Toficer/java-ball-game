@@ -15,14 +15,20 @@ public class BallGame {
 	static MenuWindow mwindow;
 	static TopScoresWindow swindow;
 	static HelpWindow hwindow;
+	static NameWindow nwindow;
+	static EndWindow ewindow;
 	static boolean isPaused = false;
-	Object[][] tileList;
+	static int levelNumber;
+	static String playerName;
+	static int levelCount;
 	
 	BallGame() throws IOException {
-		
-		//TODO: okno bedzie jedynie odczytywac wartosci z parsera, a nie byc przez niego tworzone.
+
 		parser = new LevelParser();
-		window = parser.readLevelFile("test.txt");
+		levelNumber = 1;
+		GameLevelContainer temp = parser.readLevelFile("levels.txt", levelNumber);
+		levelCount = parser.getLevelCount("levels.txt");
+		window = new GameWindow(("Kulka, level: " + levelNumber), temp.canvas, temp.lives, temp.pool, temp.poolDecay, temp.gravity, temp.starvalue, temp.boosterstrength, temp.gballvalue);
 
 	}
 	
@@ -41,7 +47,15 @@ public class BallGame {
 		//okna najlepszych wynikow i pomocy
 		swindow = new TopScoresWindow("Najlepsze Wyniki");
 		hwindow = new HelpWindow("Pomoc");
-		
+
+		//okno wyboru nicku
+		nwindow = new NameWindow("Podaj nick");
+		game.nwindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//okno koncowe
+		ewindow = new EndWindow("Koniec gry");
+		game.ewindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		//obsluga klawiatury i flag ruchu
 		Controller controller = new Controller(game);
 		new Thread(controller).start();

@@ -20,12 +20,16 @@ public class GameWindow extends JFrame{
 	int pool=1; //pula
 	int score=0; //wynik
 	int poolDecay = 0; //predkosc zmniejszania puli
-	int gravity = 1;
+	double gravity = 1;
+	int starvalue = 100;
+	int boosterstrength = 2;
+	double gballvalue = 0.5;
 	GameCanvas gameCanvas; //obszar animacji
 	JLabel lives_label, pool_label, score_label; //teksty UI
 	JButton pauseButton, exitButton; //przyciski pauzy i wyjscia z gry
-	
-	GameWindow(String title, GameCanvas canvas, int lives_n, int pool_n, int poolDecay_n, int gravity_n){
+	JPanel centralPanel;
+
+	GameWindow(String title, GameCanvas canvas, int lives_n, int pool_n, int poolDecay_n, double gravity_n, int starvalue_n, int boosterstrength_n, double gballvalue_n){
 		
 		super(title);
 		
@@ -36,10 +40,13 @@ public class GameWindow extends JFrame{
 		lives = lives_n;
 		poolDecay = poolDecay_n;
 		gravity = gravity_n;
-		
+		starvalue = starvalue_n;
+		boosterstrength = boosterstrength_n;
+		gballvalue = gballvalue_n;
+
 		//teksty UI sa tworzone z zadanymi w pliku wartosciami poczatkowymi.
 		
-		lives_label = new JLabel("ZYCIA: " + lives);
+		lives_label = new JLabel("ZYCIA: " + lives + "  ");
 		pool_label = new JLabel("PULA: " + pool);
 		score_label = new JLabel("WYNIK: " + score);
 		
@@ -72,7 +79,7 @@ public class GameWindow extends JFrame{
 		footerPanel.add(leftPanel, BorderLayout.WEST);
 		footerPanel.setBackground(Color.lightGray);
 		
-		JPanel centralPanel = new JPanel(new BorderLayout());
+		centralPanel = new JPanel(new BorderLayout());
 		centralPanel.setBackground(Color.lightGray);
 		centralPanel.add(gameCanvas, BorderLayout.CENTER);
 		add(centralPanel, BorderLayout.CENTER);
@@ -86,12 +93,13 @@ public class GameWindow extends JFrame{
 	 */
 	public void setLives(int input) {
 		lives = input;
+		lives_label.setText("ZYCIA: " + lives + "  ");
 	}
 	/**
 	 * Pozwala na edycje sily grawitacji.
 	 * @param input Zadana grawitacja.
 	 */
-	public void setGravity(int input) {
+	public void setGravity(double input) {
 		gravity = input;
 	}
 	/**
@@ -143,27 +151,27 @@ public class GameWindow extends JFrame{
 	/**
 	 * Zwraca horyzontalna predkosc kulki.
 	 */
-	public int getBallhVel() {
+	public double getBallhVel() {
 		return gameCanvas.ball.hVelocity;
 	}
 	/**
 	 * Zwraca wertykalna predkosc kulki.
 	 */
-	public int getBallvVel() {
+	public double getBallvVel() {
 		return gameCanvas.ball.vVelocity;
 	}
 	/**
 	 * Pozwala ustawic horyzontalna predkosc kulki.
 	 * @param v Wartosc predkosci.
 	 */
-	public void setBallhVel(int v) {
+	public void setBallhVel(double v) {
 		gameCanvas.ball.hVelocity = v;
 	}
 	/**
 	 * Pozwala ustawic wertykalna predkosc kulki.
 	 * @param v Wartosc predkosci.
 	 */
-	public void setBallvVel(int v) {
+	public void setBallvVel(double v) {
 		gameCanvas.ball.vVelocity = v;
 	}
 }

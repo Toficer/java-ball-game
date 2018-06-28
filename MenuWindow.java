@@ -36,7 +36,7 @@ public class MenuWindow extends JFrame{
 		mainPanel.add(startButton);
 		mainPanel.add(scoreButton);
 		mainPanel.add(helpButton);
-		mainPanel.add(new JButton("SERWER"));
+		mainPanel.add(new JButton("SERWER (NIEDOSTEPNY)"));
 		mainPanel.add(exitButton);
 		
 		add(mainPanel);
